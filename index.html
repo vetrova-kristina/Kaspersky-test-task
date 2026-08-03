@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Раздел 3. Цифровые следы</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --accent: #4fd0b4;
+      --accent-dark: #2fb79a;
+      --border: #d1d5db;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    .screen {
+      display: none;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      background: #ffffff;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      color: #111827;
+    }
+
+    p {
+      line-height: 1.55;
+      margin: 10px 0;
+    }
+
+    ul {
+      margin: 8px 0 12px 20px;
+      line-height: 1.55;
+    }
+
+    .progress {
+      margin-bottom: 16px;
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress > div {
+      height: 100%;
+      width: 0;
+      background: var(--accent);
+      transition: width 0.25s ease;
+    }
+
+    .progress-text {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .question {
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin: 10px 0 12px;
+    }
+
+    .option {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .option.selected {
+      border-color: var(--accent-dark);
+      background: #f3fffc;
+    }
+
+    .btn {
+      border: 1px solid var(--accent-dark);
+      background: var(--accent);
+      color: #083a31;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--accent-dark);
+      color: #ffffff;
+    }
+
+    .actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .feedback {
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      display: none;
+      white-space: pre-line;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 8px 0 10px;
+    }
+
+    .tab-btn {
+      border: 1px solid var(--accent-dark);
+      background: #ffffff;
+      color: #0f172a;
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #083a31;
+    }
+
+    .tab-panel {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="progress"><div id="progressFill"></div></div>
+    <p class="progress-text" id="progressText"></p>
+
+    <section class="screen active" data-step="1">
+      <h1>Раздел 3. Цифровые следы</h1>
+      <p>Добро пожаловать в раздел «Цифровые следы»!</p>
+      <p>Здесь вы узнаете, почему незаблокированный экран, случайная флешка и непроверенное письмо — это три главные лазейки для шпиона.</p>
+      <p>После прохождения раздела, вы научитесь трем действиям:</p>
+      <ul>
+        <li>блокировать экран за 2 секунды</li>
+        <li>уверенно отказываться от чужих флешек без чувства неловкости</li>
+        <li>проверять адресата в любом письме</li>
+      </ul>
+      <div class="actions">
+        <button class="btn" data-next>Продолжить</button>
+      </div>
+    </section>
+
+    <section class="screen" data-step="2">
+      <h2>Давайте порассуждаем</h2>
+      <p>Представьте ситуацию: вы выходите из кабинета на пять минут за кофе или к коллеге в соседний отдел, экран ноутбука остаётся включённым. На нём открытая почта с прайсами, таблица с зарплатами или переписка с важным клиентом. Будете ли вы блокировать экран монитора?</p>
+      <div class="question" data-question="q1">
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q1" value="a" />
+            <span>Конечно, это привычное действие</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q1" value="b" />
+            <span>Не вижу смысла, я выхожу ненадолго</span>
+          </label>
+        </div>
+        <button class="btn" data-submit="q1">Отправить</button>
+        <div class="feedback" id="fb-q1"></div>
+      </div>
+      <div class="actions">
+        <button class="btn" data-next>Продолжить</button>
+      </div>
+    </section>
+
+    <section class="screen" data-step="3">
+      <h2>Давайте порассуждаем</h2>
+      <p>Представьте следующую ситуацию: Вы находите на столе в переговорной флешку. Флешка выглядит безобидно, у вас есть ощущение, что похожую вы видели у коллеги, но вы не уверены до конца. У вас есть желание вставить её в ноутбук, чтобы посмотреть, чья она, и вернуть владельцу. Что вы сделаете?</p>
+      <div class="question" data-question="q2">
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q2" value="a" />
+            <span>Вставлю в компьютер, чтобы проверить, чья она</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q2" value="b" />
+            <span>Отнесу в IT-отдел, уточню у коллег или выброшу</span>
+          </label>
+        </div>
+        <button class="btn" data-submit="q2">Отправить</button>
+        <div class="feedback" id="fb-q2"></div>
+      </div>
+      <div class="actions">
+        <button class="btn" data-next>Продолжить</button>
+      </div>
+    </section>
+
+    <section class="screen" data-step="4">
+      <h2>Давайте порассуждаем</h2>
+      <p>Последняя ситуация: Вам приходит письмо, вроде бы от генерального директора. Он пишет: «Срочно! Перешли мне список всех клиентов за последний квартал». Имя в поле «От кого» стоит правильное: Иван Петрович. Будете ли вы проверять полный электронный адрес отправителя?</p>
+      <div class="question" data-question="q3">
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q3" value="a" />
+            <span>Не всегда обращаю на это внимание</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q3" value="b" />
+            <span>Проверю электронный адрес полностью</span>
+          </label>
+        </div>
+        <button class="btn" data-submit="q3">Отправить</button>
+        <div class="feedback" id="fb-q3"></div>
+      </div>
+      <p>Нажимайте на кнопку «Продолжить» для перехода к следующим частям раздела</p>
+      <div class="actions">
+        <button class="btn" data-next>Продолжить</button>
+      </div>
+    </section>
+
+    <section class="screen" data-step="5">
+      <h2>Почему эти шпионские уловки работают?</h2>
+      <p>У большинства людей есть стереотип: промышленный шпионаж — это что-то из триллеров и боевиков: сложные системы слежения, лазерные микрофоны, взлом защищённых серверов. В реальности всё гораздо проще и прозаичнее:</p>
+      <p>Шпион, который проникает в компанию, не тратит время и ресурсы на взлом корпоративной сети, если можно дождаться, пока кто-то из сотрудников отойдёт от компьютера и оставит экран включённым</p>
+      <p>Шпиону не нужно уговаривать вас открыть вредоносный файл, если вы сами вставите его флешку в свой корпоративный ноутбук</p>
+      <p>Шпиону не нужно подделывать документы и проходить многоуровневую проверку, если вы сами отправите данные по его просьбе, приняв его за начальника или коллегу</p>
+      <p>Шпион не взламывает систему, он «взламывает» человека, а точнее человеческую невнимательность и привычку делать «как удобно», а не «как правильно».</p>
+      <div class="actions">
+        <button class="btn" data-next>Продолжить</button>
+      </div>
+    </section>
+
+    <section class="screen" data-step="6">
+      <h2>Как себя защитить?</h2>
+      <p>Теперь перейдём к конкретным действиям: они простые, занимают несколько секунд, и если вы превратите их в привычку, вам не придётся об этом думать — вы будете делать их автоматически</p>
+      <h3>Блокировка экрана</h3>
+      <p>Это самое быстрое действие из всех, о которых мы сегодня говорим</p>
+      <p>Нажмите на каждую вкладку для изучения информации</p>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="win">Комбинация клавиш Win + L</button>
+        <button class="tab-btn" data-tab="mac">Cmd + Ctrl + Q</button>
+      </div>
+      <div class="tab-panel active" data-panel="win">
+        <p>Для систем Windows</p>
+      </div>
+      <div class="tab-panel" data-panel="mac">
+        <p>Для систем Mac</p>
+      </div>
+      <p>Важно делать это каждый раз, когда вы встаёте из-за стола: неважно, уходите вы на совещание на час или выходите в коридор попить воды. Если экран остаётся открытым, любой проходящий мимо человек может увидеть то, что не должен видеть</p>
+      <div class="actions">
+        <button class="btn" data-next>Продолжить</button>
+      </div>
+    </section>
+
+    <section class="screen" data-step="7">
+      <h3>Отказ от чужих флешек</h3>
+      <p>Это, пожалуй, психологически самый сложный пункт, потому что он требует от вас сказать «нет» человеку или отказаться от действия, которое кажется безобидным</p>
+      <p>Запомните простое правило: в ваш рабочий компьютер попадают только те флешки, которые выданы вам IT-отделом. Всё остальное — риск</p>
+      <p>Нашли флешку в коридоре, в переговорной или на парковке?</p>
+      <p>Не вставляйте её в компьютер, она может быть специально подброшена. На ней может быть программа, которая автоматически запускается при подключении и начинает собирать данные с вашего диска или отправлять их злоумышленнику. Никто не узнает, чья это флешка и когда именно она попала в офис</p>
+      <p>Кто-то принёс свою флешку с домашнего компьютера, чтобы скопировать рабочие файлы?</p>
+      <p>Предложите ему альтернативу: использовать корпоративное облако, внутренний сетевой диск или отправить файлы по корпоративной почте. Если он настаивает на своей флешке, вежливо, но твёрдо скажите: «Извини, у нас запрещено использовать личные носители. Это политика безопасности, я не могу её нарушать»</p>
+      <p>Если кто-то просит вас вставить его флешку в ваш компьютер, чтобы «посмотреть одну вещь» или «быстренько распечатать»?</p>
+      <p>Это не ваша проблема. Это проблема того человека, который не использует корпоративные каналы. Ваша задача — защитить свой компьютер и данные компании. Отказ в такой ситуации — не грубость. Это ваша работа</p>
+      <div class="actions">
+        <button class="btn" data-next>Продолжить</button>
+      </div>
+    </section>
+
+    <section class="screen" data-step="8">
+      <h3>Проверка адресата</h3>
+      <p>Это занимает чуть больше времени, но спасает от огромного количества проблем</p>
+      <p>1 Проверка домена</p>
+      <p>Домен — это имя сервера после знака «@» (например, gmail.com)</p>
+      <p>Когда вы получаете письмо, которое просит вас перейти по ссылке, открыть вложение или срочно что-то отправить, не торопитесь. Посмотрите на то, что написано в поле «От кого». Но не на имя, а на адрес электронной почты (всё, что стоит после знака @)</p>
+      <p>Если адрес заканчивается на @mail.ru, а ваша компания использует домен @вашакомпания.ru, — это повод насторожиться. Даже если письмо пришло от коллеги, но адрес кажется непривычным или слегка изменённым (@vashakompaniya.ru вместо @вашакомпания.ru), лучше не рисковать.</p>
+      <p>В таких случаях не открывайте вложения и не переходите по ссылкам. Вместо этого свяжитесь с коллегой по телефону или в корпоративном мессенджере и уточните, отправлял ли он это письмо</p>
+      <p>2 Время отправки</p>
+      <p>Если письмо пришло в три часа ночи от человека, который обычно не работает в такое время, — это тоже сигнал. Не игнорируйте его — свяжитесь с коллегой в рабочее время и уточните факт отправки письма</p>
+      <div class="actions">
+        <button class="btn" data-next>Продолжить</button>
+      </div>
+    </section>
+
+    <section class="screen" data-step="9">
+      <h2>Поздравляем!</h2>
+      <p>Вы завершили изучение раздела «Цифровые следы»</p>
+      <p>Теперь вы знаете три правила:</p>
+      <ul>
+        <li>блокировка экрана</li>
+        <li>отказ от ненадежных флеш-накопителей</li>
+        <li>проверка адресата</li>
+      </ul>
+      <p>Чтобы не быть для злоумышленников лёгкой мишенью, превратите эти правила в ваши рутинные действия</p>
+    </section>
+  </div>
+
+  <script>
+    const feedback = {
+      q1: {
+        a: "Это отличная привычка! Вы никогда не узнаете, кто успел заглянуть в ваш монитор или сфотографировать экран, пока вас не было, поэтому необходимо всегда блокировать экран, если вас нет рядом",
+        b: "Смысл в этом действии прост: вы никогда не узнаете, кто успел заглянуть в ваш монитор или сфотографировать экран, пока вас не было. Информация на вашем экране может быть конфиденциальной и иметь высокую ценность, поэтому необходимо всегда блокировать экран, если вас нет рядом"
+      },
+      q2: {
+        a: "Поступок кажется благородным. На самом деле, это один из самых старых и надёжных способов, которым злоумышленники заносят вирусы в корпоративную сеть. На такой флешке может быть программа, которая начинает собирать данные с вашего компьютера в тот момент, когда вы её подключаете",
+        b: "Помогать коллегам очень благородно. Однако стремление всегда помочь может обернуться проблемами. Вы абсолютно правы – нельзя вставлять неопознанные флеш-накопители в корпоративную технику"
+      },
+      q3: {
+        a: "Иногда именно во второй части электронной почты может быть неточность. Посмотрев только на имя отправителя, вы можете отправить конфиденциальную информацию на электронный адрес злоумышленников",
+        b: "Правильный ход мысли! Именно во второй части электронной почты может быть неточность, заметив которую вы никогда не отправите конфиденциальную информацию на электронный адрес того, кто хочет получить ваши данные, притворившись начальником"
+      }
+    };
+
+    const screens = Array.from(document.querySelectorAll(".screen"));
+    const progressFill = document.getElementById("progressFill");
+    const progressText = document.getElementById("progressText");
+    let step = 1;
+
+    function renderStep() {
+      screens.forEach((screen, index) => {
+        screen.classList.toggle("active", index + 1 === step);
+      });
+      const percent = ((step - 1) / (screens.length - 1)) * 100;
+      progressFill.style.width = percent + "%";
+      progressText.textContent = "Шаг " + step + " из " + screens.length;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    document.addEventListener("change", (event) => {
+      const option = event.target.closest("input[type='radio']");
+      if (!option) {
+        return;
+      }
+      const name = option.name;
+      document.querySelectorAll(".option").forEach((label) => {
+        const input = label.querySelector("input");
+        if (input && input.name === name) {
+          label.classList.toggle("selected", input.checked);
+        }
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      const nextButton = event.target.closest("[data-next]");
+      if (nextButton) {
+        step = Math.min(screens.length, step + 1);
+        renderStep();
+      }
+
+      const submitButton = event.target.closest("[data-submit]");
+      if (submitButton) {
+        const key = submitButton.getAttribute("data-submit");
+        const selected = document.querySelector("input[name='" + key + "']:checked");
+        if (!selected) {
+          return;
+        }
+        const box = document.getElementById("fb-" + key);
+        box.textContent = feedback[key][selected.value];
+        box.classList.add("show");
+      }
+
+      const tabButton = event.target.closest(".tab-btn");
+      if (tabButton) {
+        const tab = tabButton.getAttribute("data-tab");
+        document.querySelectorAll(".tab-btn").forEach((btn) => {
+          btn.classList.toggle("active", btn === tabButton);
+        });
+        document.querySelectorAll(".tab-panel").forEach((panel) => {
+          panel.classList.toggle("active", panel.getAttribute("data-panel") === tab);
+        });
+      }
+    });
+
+    renderStep();
+  </script>
+</body>
+</html>
