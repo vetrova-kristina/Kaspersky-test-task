@@ -128,6 +128,11 @@
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .actions .btn[data-next] {
+      margin-left: auto;
     }
 
     .feedback {
@@ -215,6 +220,7 @@
         <div class="feedback" id="fb-q1"></div>
       </div>
       <div class="actions">
+        <button class="btn" data-prev>Назад</button>
         <button class="btn" data-next>Продолжить</button>
       </div>
     </section>
@@ -237,6 +243,7 @@
         <div class="feedback" id="fb-q2"></div>
       </div>
       <div class="actions">
+        <button class="btn" data-prev>Назад</button>
         <button class="btn" data-next>Продолжить</button>
       </div>
     </section>
@@ -260,6 +267,7 @@
       </div>
       <p>Нажимайте на кнопку «Продолжить» для перехода к следующим частям раздела</p>
       <div class="actions">
+        <button class="btn" data-prev>Назад</button>
         <button class="btn" data-next>Продолжить</button>
       </div>
     </section>
@@ -272,6 +280,7 @@
       <p>Шпиону не нужно подделывать документы и проходить многоуровневую проверку, если вы сами отправите данные по его просьбе, приняв его за начальника или коллегу</p>
       <p>Шпион не взламывает систему, он «взламывает» человека, а точнее человеческую невнимательность и привычку делать «как удобно», а не «как правильно».</p>
       <div class="actions">
+        <button class="btn" data-prev>Назад</button>
         <button class="btn" data-next>Продолжить</button>
       </div>
     </section>
@@ -294,6 +303,7 @@
       </div>
       <p>Важно делать это каждый раз, когда вы встаёте из-за стола: неважно, уходите вы на совещание на час или выходите в коридор попить воды. Если экран остаётся открытым, любой проходящий мимо человек может увидеть то, что не должен видеть</p>
       <div class="actions">
+        <button class="btn" data-prev>Назад</button>
         <button class="btn" data-next>Продолжить</button>
       </div>
     </section>
@@ -309,6 +319,7 @@
       <p>Если кто-то просит вас вставить его флешку в ваш компьютер, чтобы «посмотреть одну вещь» или «быстренько распечатать»?</p>
       <p>Это не ваша проблема. Это проблема того человека, который не использует корпоративные каналы. Ваша задача — защитить свой компьютер и данные компании. Отказ в такой ситуации — не грубость. Это ваша работа</p>
       <div class="actions">
+        <button class="btn" data-prev>Назад</button>
         <button class="btn" data-next>Продолжить</button>
       </div>
     </section>
@@ -324,6 +335,7 @@
       <p>2 Время отправки</p>
       <p>Если письмо пришло в три часа ночи от человека, который обычно не работает в такое время, — это тоже сигнал. Не игнорируйте его — свяжитесь с коллегой в рабочее время и уточните факт отправки письма</p>
       <div class="actions">
+        <button class="btn" data-prev>Назад</button>
         <button class="btn" data-next>Продолжить</button>
       </div>
     </section>
@@ -338,6 +350,9 @@
         <li>проверка адресата</li>
       </ul>
       <p>Чтобы не быть для злоумышленников лёгкой мишенью, превратите эти правила в ваши рутинные действия</p>
+      <div class="actions">
+        <button class="btn" data-prev>Назад</button>
+      </div>
     </section>
   </div>
 
@@ -390,6 +405,12 @@
       const nextButton = event.target.closest("[data-next]");
       if (nextButton) {
         step = Math.min(screens.length, step + 1);
+        renderStep();
+      }
+
+      const prevButton = event.target.closest("[data-prev]");
+      if (prevButton) {
+        step = Math.max(1, step - 1);
         renderStep();
       }
 
