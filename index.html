@@ -12,6 +12,7 @@
       --muted: #4b5563;
       --accent: #4fd0b4;
       --accent-dark: #2fb79a;
+      --text-accent: #12355e;
       --border: #d1d5db;
     }
 
@@ -170,36 +171,70 @@
       display: block;
     }
 
-    .tabs {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+    .accordion {
       margin: 8px 0 10px;
+      display: grid;
+      gap: 8px;
     }
 
-    .tab-btn {
-      border: 1px solid var(--accent-dark);
+    .accordion-item {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .accordion-trigger {
+      width: 100%;
+      border: none;
       background: #ffffff;
       color: #0f172a;
-      border-radius: 999px;
-      padding: 8px 12px;
+      padding: 12px 14px;
+      font-size: 15px;
+      text-align: left;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
 
-    .tab-btn.active {
+    .accordion-trigger:hover {
+      background: #f9fafb;
+    }
+
+    .accordion-item.open .accordion-trigger {
       background: var(--accent);
       color: #083a31;
     }
 
-    .tab-panel {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px;
-      display: none;
+    .accordion-icon {
+      width: 10px;
+      height: 10px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+      margin-top: -4px;
     }
 
-    .tab-panel.active {
+    .accordion-item.open .accordion-icon {
+      transform: rotate(-135deg);
+      margin-top: 4px;
+    }
+
+    .accordion-content {
+      display: none;
+      padding: 0 14px 12px;
+    }
+
+    .accordion-item.open .accordion-content {
       display: block;
+    }
+
+    .accordion-content p {
+      margin: 0;
     }
 
     .scenario-list {
@@ -265,6 +300,50 @@
     .with-icon ph-envelope-open {
       flex-shrink: 0;
       margin: 2px 0 0;
+    }
+
+    .numbered-section {
+      margin-top: 16px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-weight: 700;
+      color: #111827;
+      font-size: 16px;
+    }
+
+    .numbered-section .section-body {
+      margin-left: 38px;
+    }
+
+    .numbered-section .section-body > p {
+      margin: 8px 0;
+    }
+
+    .text-accent {
+      color: var(--text-accent);
     }
   </style>
 </head>
@@ -373,18 +452,28 @@
     <section class="screen" data-step="6">
       <h2>Как себя защитить?</h2>
       <p>Теперь перейдём к конкретным действиям: они простые, занимают несколько секунд, и если вы превратите их в привычку, вам не придётся об этом думать — вы будете делать их автоматически</p>
-      <h3>Блокировка экрана</h3>
+      <h2>Блокировка экрана</h2>
       <p>Это самое быстрое действие из всех, о которых мы сегодня говорим</p>
-      <p>Нажмите на каждую вкладку для изучения информации</p>
-      <div class="tabs">
-        <button class="tab-btn active" data-tab="win">Комбинация клавиш Win + L</button>
-        <button class="tab-btn" data-tab="mac">Cmd + Ctrl + Q</button>
-      </div>
-      <div class="tab-panel active" data-panel="win">
-        <p>Для систем Windows</p>
-      </div>
-      <div class="tab-panel" data-panel="mac">
-        <p>Для систем Mac</p>
+      <p><i>Нажмите на каждый пункт для изучения информации</i></p>
+      <div class="accordion">
+        <div class="accordion-item">
+          <button class="accordion-trigger" type="button" aria-expanded="false">
+            Для системы Windows
+            <span class="accordion-icon" aria-hidden="true"></span>
+          </button>
+          <div class="accordion-content">
+            <p>Комбинация клавиш Win + L</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" type="button" aria-expanded="false">
+            Для системы Mac
+            <span class="accordion-icon" aria-hidden="true"></span>
+          </button>
+          <div class="accordion-content">
+            <p>Комбинация клавиш Cmd + Ctrl + Q</p>
+          </div>
+        </div>
       </div>
       <p>Важно делать это каждый раз, когда вы встаёте из-за стола: неважно, уходите вы на совещание на час или выходите в коридор попить воды. Если экран остаётся открытым, любой проходящий мимо человек может увидеть то, что не должен видеть</p>
       <div class="actions">
@@ -394,7 +483,7 @@
     </section>
 
     <section class="screen" data-step="7">
-      <h3>Отказ от чужих флешек</h3>
+      <h2>Отказ от чужих флешек</h2>
       <p>Это, пожалуй, психологически самый сложный пункт, потому что он требует от вас сказать «нет» человеку или отказаться от действия, которое кажется безобидным</p>
       <p>Запомните простое правило: в ваш рабочий компьютер попадают только те флешки, которые выданы вам IT-отделом. Всё остальное — риск</p>
       <ul class="scenario-list">
@@ -418,15 +507,32 @@
     </section>
 
     <section class="screen" data-step="8">
-      <h3>Проверка адресата</h3>
+      <h2>Проверка адресата</h2>
       <p>Это занимает чуть больше времени, но спасает от огромного количества проблем</p>
-      <p>1 Проверка домена</p>
-      <p>Домен — это имя сервера после знака «@» (например, gmail.com)</p>
-      <p>Когда вы получаете письмо, которое просит вас перейти по ссылке, открыть вложение или срочно что-то отправить, не торопитесь. Посмотрите на то, что написано в поле «От кого». Но не на имя, а на адрес электронной почты (всё, что стоит после знака @)</p>
-      <p>Если адрес заканчивается на @mail.ru, а ваша компания использует домен @вашакомпания.ru, — это повод насторожиться. Даже если письмо пришло от коллеги, но адрес кажется непривычным или слегка изменённым (@vashakompaniya.ru вместо @вашакомпания.ru), лучше не рисковать.</p>
-      <p>В таких случаях не открывайте вложения и не переходите по ссылкам. Вместо этого свяжитесь с коллегой по телефону или в корпоративном мессенджере и уточните, отправлял ли он это письмо</p>
-      <p>2 Время отправки</p>
-      <p>Если письмо пришло в три часа ночи от человека, который обычно не работает в такое время, — это тоже сигнал. Не игнорируйте его — свяжитесь с коллегой в рабочее время и уточните факт отправки письма</p>
+
+      <div class="numbered-section">
+        <div class="section-heading">
+          <span class="step-badge">1</span>
+          <span class="section-title">Проверка домена</span>
+        </div>
+        <div class="section-body">
+          <p class="text-accent">Домен — это имя сервера после знака «@» (например, gmail.com)</p>
+          <p>Когда вы получаете письмо, которое просит вас перейти по ссылке, открыть вложение или срочно что-то отправить, не торопитесь. Посмотрите на то, что написано в поле «От кого». Но не на имя, а на <strong>адрес электронной почты</strong> <span class="text-accent">(всё, что стоит после знака @)</span></p>
+          <p>Если адрес заканчивается на @mail.ru, а ваша компания использует домен @вашакомпания.ru, — это повод насторожиться. Даже если письмо пришло от коллеги, но адрес кажется непривычным или слегка изменённым <span class="text-accent">(@vashakompaniya.ru вместо @вашакомпания.ru)</span>, лучше не рисковать.</p>
+          <p>В таких случаях <strong>не открывайте вложения и не переходите по ссылкам</strong>. Вместо этого свяжитесь с коллегой по телефону или в корпоративном мессенджере и уточните, отправлял ли он это письмо</p>
+        </div>
+      </div>
+
+      <div class="numbered-section">
+        <div class="section-heading">
+          <span class="step-badge">2</span>
+          <span class="section-title">Время отправки</span>
+        </div>
+        <div class="section-body">
+          <p>Если письмо пришло в три часа ночи от человека, который обычно не работает в такое время, — это тоже сигнал. Не игнорируйте его — свяжитесь с коллегой в рабочее время и уточните факт отправки письма</p>
+        </div>
+      </div>
+
       <div class="actions">
         <button class="btn" data-prev>Назад</button>
         <button class="btn" data-next>Продолжить</button>
@@ -527,15 +633,12 @@
         box.classList.add("show", isCorrect ? "correct" : "incorrect");
       }
 
-      const tabButton = event.target.closest(".tab-btn");
-      if (tabButton) {
-        const tab = tabButton.getAttribute("data-tab");
-        document.querySelectorAll(".tab-btn").forEach((btn) => {
-          btn.classList.toggle("active", btn === tabButton);
-        });
-        document.querySelectorAll(".tab-panel").forEach((panel) => {
-          panel.classList.toggle("active", panel.getAttribute("data-panel") === tab);
-        });
+      const accordionTrigger = event.target.closest(".accordion-trigger");
+      if (accordionTrigger) {
+        const item = accordionTrigger.closest(".accordion-item");
+        const isOpen = item.classList.contains("open");
+        item.classList.toggle("open", !isOpen);
+        accordionTrigger.setAttribute("aria-expanded", !isOpen ? "true" : "false");
       }
     });
 
